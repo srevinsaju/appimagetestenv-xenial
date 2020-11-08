@@ -14,13 +14,13 @@ RUN apt update \
 
 # install basic deps
 RUN sudo apt-get -qqy install wget curl jq ruby-full build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip libz-dev \
-    && OLDPATH=$(realpath .)
+    && OLDPATH=$(realpath .) \
     && mkdir /tmp/git -p && cd /tmp/git \
     && wget -q https://github.com/git/git/archive/v2.29.0.tar.gz \
     && tar -xf v2.29.0.tar.gz \
     && cd git-* && make prefix=/usr/local all \
     && sudo make prefix=/usr/local install \
-    && cd $OLDPATH \
+    && cd "$OLDPATH" \
     && curl -sL https://deb.nodesource.com/setup_10.x | sudo bash \
     && sudo apt-get -y install nodejs \
     && gem install dupervisor -v 1.0.5 \
